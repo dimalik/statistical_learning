@@ -1,5 +1,6 @@
 from collections import Counter
 import random
+
 import numpy as np
 
 
@@ -58,6 +59,11 @@ class StatLearningExperiment(object):
 
         for i in xrange(self.transition_matrix.shape[0]):
             self.transition_matrix[i] /= self.transition_matrix[i].sum()
+
+        np.savetxt('transition_matrix.txt', self.transition_matrix)
+        with file('word_order.txt', 'w') as fout:
+            fout.write(' '.join(sorted(self.syllable_dictionary,
+                                       key=self.syllable_dictionary.get)))
 
     def get_random_word(self, nb_syllables=3):
         ans = [random.choice(self.syllable_set)]
